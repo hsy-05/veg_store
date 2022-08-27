@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () {return view('homeSlideshow');})->name('pageHome');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('login', 'Auth\LoginController@login');
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/admin', function () {
     return view('admin.adminHome');
@@ -33,3 +33,9 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function()
 });
 
 Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/news', function() {
+    return view('products.news');
+}) -> name('news');

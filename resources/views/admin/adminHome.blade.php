@@ -1,3 +1,5 @@
+{{-- 管理員主頁面 --}}
+
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
 

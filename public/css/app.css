@@ -10396,6 +10396,7 @@ button.bg-dark:focus {
     padding-bottom: 3rem !important;
   }
 
+
   .pl-xl-5,
   .px-xl-5 {
     padding-left: 3rem !important;
@@ -10901,5 +10902,5 @@ a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6;
   }
-}
 
+}
