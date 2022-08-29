@@ -36,6 +36,4 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/news', function() {
-    return view('products.news');
-}) -> name('news');
+Route::get('/news', 'App\Http\Controllers\NewsController@indexNews')->name('news');
