@@ -14,7 +14,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        //get 方法會回傳一個結果陣列
+        //compact：變量的名字，將變數轉換成結合陣列的 key => value
+        $this->authorize('admin');
+        $posts = Post::orderBy('id')->get();
+        return view('admin.adminHome', compact('posts'));
     }
 
     /**

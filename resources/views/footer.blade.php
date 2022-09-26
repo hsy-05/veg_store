@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="footer text-faded py-5 shop_foot admin-bg" style="margin-top:60px">
+<footer>
     <div class="container">
         <h3>聯絡我們</h3>
         <div>&#128338; 週一至週五 13:00-20:00 &nbsp; &nbsp; &nbsp; 每周六，日公休</div>

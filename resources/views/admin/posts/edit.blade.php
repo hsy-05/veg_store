@@ -1,40 +1,38 @@
-@extends('admin.adminHome')
+@extends('pageHome')
 
 @section('content')
+    <div class="container">
+        <form class="form-horizontal" action="{{ route('admin.posts.update',  $news->id) }}" method="POST" enctype="multipart/form-data">
+            @method('PUT')
+            @csrf
 
-<div class="container">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="title">標題：</label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="請輸入標題..." name="title" value="{{ $news->title }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4" for="email">內容：</label>
+                <div class="col-md-6">
+                    <textarea class="form-control" name="subtitle" rows="3" placeholder="請輸入內容..." >{{ $news->subtitle }}</textarea>
 
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">圖片：</label>
+                <div class="col-md-6"> <input class="form-control b" type="file" name="image">
+                </div>
+            </div>
 
-<form action="{{ route('admin.posts.update',  $home->id) }}" method="POST" enctype="multipart/form-data">
+            <div class="row mb-0">
+                <div class="col-md-8 offset-md-4">
+                    <button type="submit" class="btn btn-primary">
+                       送出
+                    </button>
+                </div>
+            </div>
+        </form>
 
-    @method('PUT')
-
-    @csrf
-
-    <label>消息主題：
-
-        <textarea class="form-control b" name="content_1">{{ $home->content_1 }}</textarea>
-
-    </label><br>
-
-    <label>消息內容：
-
-        <textarea class="form-control b" name="content_2">{{ $home->content_2 }}</textarea>
-
-    </label><br>
-
-
-        <label>圖片:
-
-            <input class="form-control b" type="file" name="image">
-
-        {{-- <img src="{{ asset('uploads/home/' . $home->image) }}" class="mt-3" style="height: 100%; width: 100%; object-fit: contain; display:none;"> --}}
-    </label><br>
-
-
-    <button type="submit" class="btn btn-primary">更新消息</button>
-
-</form>
-
-</div>
+    </div>
 @endsection

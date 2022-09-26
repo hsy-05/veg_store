@@ -20,20 +20,15 @@ Route::post('login', 'Auth\LoginController@login');
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/admin', function () {
-    return view('admin.adminHome');
-});
-
-Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index3'])->name('new');
-
-Route::prefix('admin')->middleware('auth')->name('admin.')->group(function()
-{
-    Route::resource('posts', 'App\Http\Controllers\PostController');   ////////要打全名
-    Route::resource('products', 'App\Http\Controllers\ProductsController');
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function() {
+    Route::resource('posts', 'App\Http\Controllers\NewsController');   ////////要打全名
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/news', 'App\Http\Controllers\NewsController@indexNews')->name('news');
+Route::get('/news', 'App\Http\Controllers\HomeController@indexNews')->name('news');
+
+
+Route::get('/adminHome', 'App\Http\Controllers\NewsController@index')->name('adminHome');

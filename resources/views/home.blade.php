@@ -1,3 +1,5 @@
+{{-- 登入成功顯示 --}}
+
 @extends('pageHome')
 
 @section('content')

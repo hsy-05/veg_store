@@ -6,7 +6,7 @@
             <li><a href="#">蔬菜</a></li>
             <li><a href="#">水果</a></li>
             @can('admin')
-                <li><a href="#" class="adminBG">進入管理頁面</a></li>
+                <li><a href="{{ route('adminHome') }}" class="adminBG">進入管理頁面</a></li>
             @endcan
 
             <ul class="nav navbar-nav ml-auto">

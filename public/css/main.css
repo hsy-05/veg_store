@@ -16,3 +16,18 @@
   transform: scale(1.3);
   opacity: 0.6;
 }
+
+.cardStyle{
+    width: 300px;
+    margin-right: 20px;
+}
+
+ /* 表單 */
+ .formDiv-size{
+    height: 50px;
+    width: 200px;
+ }
+
+ button {
+    font-weight: bold;
+  }

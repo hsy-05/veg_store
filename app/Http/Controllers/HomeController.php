@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\News;
 
 class HomeController extends Controller
 {
@@ -25,4 +26,15 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function indexNews()
+    {
+        // $news = News::all();
+        // return view('products.news', compact('news'));
+
+        $news = News::paginate(2);  //每5個資料作為一頁
+        return view('products.news', compact('news'));
+    }
+
+
 }
