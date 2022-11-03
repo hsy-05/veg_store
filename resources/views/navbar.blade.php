@@ -2,9 +2,9 @@
     <div class="container-fluid">
         <ul class="nav navbar-nav" style="font-weight:bold;font-size: 20px; width:100%">
             <li class="active"><a href="{{ route('pageHome') }}" style="font-size: 30px;margin-right: 36px;">Veg.Store</a></li>
-            <li><a href="{{ route('news') }}">NEWS</a></li>
-            <li><a href="#">蔬菜</a></li>
-            <li><a href="#">水果</a></li>
+            <li><a href="{{ route('news') }}">{{ __('News' )}}</a></li>
+            <li><a href="{{ route('veg') }}">{{ __('Vegetable') }}</a></li>
+            <li><a href="#">{{ __('Fruit') }}</a></li>
             @can('admin')
                 <li><a href="{{ route('adminHome') }}" class="adminBG">進入管理頁面</a></li>
             @endcan
@@ -41,12 +41,12 @@
                         </li>
                     @else
                         <a href="{{ route('login') }}" style="font-size:15px; text-align: right;"><span
-                                class="glyphicon glyphicon-user">&nbsp;</span>Login</a>
+                                class="glyphicon glyphicon-user">&nbsp;</span>登入</a>
                         </li>
                         <li>
                             @if (Route::has('register'))
                                 <a href="{{ route('register') }}" style="font-size:15px; text-align: right;"><span
-                                        class="glyphicon glyphicon-log-in">&nbsp;</span>Register</a>
+                                        class="glyphicon glyphicon-log-in">&nbsp;</span>註冊</a>
                             @endif
                         @endauth
                     </li>

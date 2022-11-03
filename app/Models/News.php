@@ -22,4 +22,5 @@ class News extends Model
     //  * @var bool
     //  */
     // public $timestamps = false;  //不新增created_at 和 updated_at
+
 }

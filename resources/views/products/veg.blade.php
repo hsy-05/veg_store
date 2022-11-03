@@ -1,4 +1,4 @@
-{{-- 活動頁面 --}}
+{{-- 蔬菜頁面 --}}
 
 @extends('pageHome')
 
@@ -12,22 +12,22 @@
     @endcan --}}
 
     <div class="row row-cols-1 row-cols-md-3">
-        @foreach ($news as $new)
+        @foreach ($posts as $post)
         <div class="col">
             <div class="card h-100" style="width: 300px;">
                 <div class="overflow-hidden">
-                    <img src="{{ asset('uploads/newsImage/' . $new->image) }}" class="card-img-top imageHov" alt="...">
+                    <img src="{{ asset('uploads/newsImage/' . $post->image) }}" class="card-img-top imageHov" alt="...">
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">{!! $new->title !!}</h5>
-                    <p class="card-text">{!! $new->subtitle !!}</p>
+                    <h5 class="card-title">{!! $post->title !!}</h5>
+                    <p class="card-text">{!! $post->description !!}</p>
                 </div>
             </div>
         </div>
         @endforeach
     </div>
     <footer class="d-flex align-items-center justify-content-center row">
-        {!! $news->links() !!}
-        共{!! $news->total() !!}筆
+        {!! $posts->links() !!}
+        共{!! $posts->total() !!}筆
     </div></footer>
 @endsection

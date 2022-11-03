@@ -21,7 +21,8 @@ Route::post('login', 'Auth\LoginController@login');
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function() {
-    Route::resource('posts', 'App\Http\Controllers\NewsController');   ////////要打全名
+    Route::resource('news', 'App\Http\Controllers\NewsController');   ////////要打全名
+    Route::resource('posts', 'App\Http\Controllers\PostController');   ////////要打全名
 });
 
 Auth::routes();
@@ -29,6 +30,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/news', 'App\Http\Controllers\HomeController@indexNews')->name('news');
+Route::get('/veg', 'App\Http\Controllers\HomeController@indexVeg')->name('veg');
 
-
-Route::get('/adminHome', 'App\Http\Controllers\NewsController@index')->name('adminHome');
+Route::get('/adminHome', 'App\Http\Controllers\HomeController@indexAdminHome')->name('adminHome');

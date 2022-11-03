@@ -8,15 +8,7 @@ use App\Models\News;
 class NewsController extends Controller
 {
 
-    public function index()
-    {
-
-        //get 方法會回傳一個結果陣列
-        //compact：變量的名字，將變數轉換成結合陣列的 key => value
-        $this->authorize('admin');
-        $news = News::orderBy('id')->get();
-        return view('admin.adminHome', compact('news'));
-    }
+    // ----------------------------------------新增-------------------------------------------
 
     /**
      * Show the form for creating a new resource.
@@ -26,6 +18,7 @@ class NewsController extends Controller
     public function create()
     {
         $this->authorize('admin');
+        $news = "news";
         return view('admin.posts.create', compact('news'));
     }
 
@@ -37,9 +30,32 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('admin');
+        if (!file_exists('uploads/newsImage')) {
+            mkdir('uploads/newsImage', 0755, true);
+        }
+
+        $new = new News;
+
+        //圖片上傳的路徑
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = public_path('\uploads\newsImage\\'); //取得 public 目錄的完整路徑
+            $fileName = time() . '.' . $file->getClientOriginalExtension(); //取得上傳檔案的副檔名
+            $file->move($path, $fileName);
+        } else {
+            $fileName = 'default.jpg';
+        }
+        $new->title = $request->input('title');
+        $new->subtitle = $request->input('subtitle');
+        $new->image = $fileName;
+
+        $new->save();
+
+        return redirect()->back()->with('saveSuc', '新增成功！');
     }
 
+    // ----------------------------------------修改-------------------------------------------
 
     /**
      * Show the form for editing the specified resource.
@@ -83,7 +99,7 @@ class NewsController extends Controller
             if ($news->image != 'default.jpg')
                 @unlink('uploads/newsImage/' . $news->image);
             $file = $request->file('image');
-            $path = public_path() . '\uploads\newsImage\\';
+            $path = public_path('\uploads\newsImage\\');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             $file->move($path, $fileName);
 
@@ -95,6 +111,21 @@ class NewsController extends Controller
         $news->save();
 
         return redirect()->route('adminHome');
-
-        }
     }
+
+    // ---------------------------------------刪除--------------------------------------------
+        /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $new = News::find($id);
+        if ($new->image != 'default.jpg')
+            @unlink('uploads/newsImage/' . $new->image);
+        $new->delete();
+        return redirect()->back()->with('deleteSuc', '刪除成功！');
+    }
+}
