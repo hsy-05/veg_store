@@ -16,7 +16,7 @@
         <div class="col">
             <div class="card h-100" style="width: 300px;">
                 <div class="overflow-hidden">
-                    <img src="{{ asset('uploads/newsImage/' . $post->image) }}" class="card-img-top imageHov" alt="...">
+                    <img src="{{ asset('uploads/postsImage/' . $post->image) }}" class="card-img-top imageHov" alt="...">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{!! $post->title !!}</h5>

@@ -26,11 +26,3 @@ $(document).ready(function () {
     })
 
 });
-
-$(document).ready(function () {
-    $("div.alertMsg").each(function () {
-        if ($(this).not(':visible'))
-        $(this).show(1000).delay(3000).fadeOut(1000);
-    })
-
-});

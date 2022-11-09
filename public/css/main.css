@@ -31,3 +31,42 @@
  button {
     font-weight: bold;
   }
+
+  /* ----sidebar ----- */
+  .sidenav {
+    height: 573px;
+    width: 100px;
+    display: inline-block;
+    float:left;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+
+  .sidenav button {
+    width: 100px;
+
+    text-decoration: none;
+    font-size: 25px;
+    color: #fff;
+    display: block;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+  }
+
+  .sidenav button:hover {
+    color: #99e5d2;
+  }
+  .mainDiv {
+    margin-left: 100px; /* Same as the width of the sidenav */
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav button {font-size: 18px;}
+  }
+    /* ----sidebar ----- */

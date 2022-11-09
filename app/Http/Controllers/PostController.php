@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\News;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -27,28 +26,32 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+      public function store(Request $request)
     {
         $this->authorize('admin');
-        if (!file_exists('uploads/newsImage'))
-            mkdir('uploads/newsImage', 0755, true);
-
-        if($request->hasFile('image')){
-            $file = $request->file('image');
-            $path = public_path('\uploads\newsImage\\'); //取得 public 目錄的完整路徑
-            $fileName = time() . '.' . $file->getClientOriginalExtension(); //取得上傳檔案的副檔名
-            $file->move($path, $fileName);
-        }else{
-            $fileName = 'default.jpg';
+        if (!file_exists('uploads/postsImage')) {
+            mkdir('uploads/postsImage', 0755, true);
         }
 
         $post = new Post;
-        $post->title = $request->input('title');
+
+        //圖片上傳的路徑
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = public_path('\uploads\postsImage\\'); //取得 public 目錄的完整路徑
+            $fileName = time() . '.' . $file->getClientOriginalExtension(); //取得上傳檔案的副檔名
+            $file->move($path, $fileName);
+        } else {
+            $fileName = 'default.jpg';
+        }
         $post->price = $request->input('price');
+        $post->title = $request->input('title');
         $post->description = $request->input('description');
+        $post->image = $fileName;
 
         $post->save();
 
+        return redirect()->route('adminHome')->with('saveSuc', '新增成功！');
     }
 
     /**
@@ -57,14 +60,11 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, Request $request)
+    public function edit($id)
     {
-
         $this->authorize('admin');
         $posts = Post::find($id);
-        $news = News::find($id);
-        $reqBtn = $request->input('returnBtn');
-        return view('admin.posts.edit', compact('posts', 'news','reqBtn'));
+        return view('admin.posts.edit', compact('posts'));
     }
 
     /**
@@ -74,11 +74,11 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $this->authorize('admin');
         // 如果路徑不存在，就自動建立
-        if (!file_exists('uploads/newsImage')) {
+        if (!file_exists('uploads/postsImage')) {
 
             // mkdir() 函數創建目錄。
             // 若成功，則返回 true，否則返回 false。
@@ -88,26 +88,26 @@ class PostController extends Controller
             // recursive	必需。規定是否設置遞歸模式。
             // context	必需。規定文件句柄的環境。Context 是可修改流的行為的一套選項。
 
-            mkdir('uploads/newsImage', 0755, true);
+            mkdir('uploads/postsImage', 0755, true);
         }
 
-        $news = Post::find($id);
+        $post = Post::find($id);
 
         if ($request->hasFile('image')) {
             // 先刪除原本的圖片
-            if ($news->image != 'default.jpg')
-                @unlink('uploads/newsImage/' . $news->image);
+            if ($post->image != 'default.jpg')
+                @unlink('uploads/postsImage/' . $post->image);
             $file = $request->file('image');
-            $path = public_path('\uploads\newsImage\\');
+            $path = public_path('\uploads\postsImage\\');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             $file->move($path, $fileName);
 
-            $news->image = $fileName;
+            $post->image = $fileName;
         }
-        $news->title = $request->input('title');
-        $news->subtitle = $request->input('subtitle');
+        $post->title = $request->input('title');
+        $post->description = $request->input('description');
 
-        $news->save();
+        $post->save();
 
         return redirect()->route('adminHome');
     }
@@ -118,8 +118,12 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        if ($post->image != 'default.jpg')
+            @unlink('uploads/postsImage/' . $post->image);
+        $post->delete();
+        return redirect()->back()->with('deleteSuc', '刪除成功！');
     }
 }

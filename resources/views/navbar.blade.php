@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light justify-content-between">
+<nav class="navbar fixed-top navbar-expand-lg navbar-light justify-content-between" style="background-image: linear-gradient(to bottom, #c1dfc4 0%, #f8fafc 100%);">
     <div class="container-fluid">
         <ul class="nav navbar-nav" style="font-weight:bold;font-size: 20px; width:100%">
             <li class="active"><a href="{{ route('pageHome') }}" style="font-size: 30px;margin-right: 36px;">Veg.Store</a></li>

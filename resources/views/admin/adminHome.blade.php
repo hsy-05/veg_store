@@ -3,20 +3,22 @@
 @extends('pageHome')
 
 @section('content')
-    <div class="container">
-        <div style="margin-bottom: 15px">
-            <button class="btn btn-info" id="adminNewBtn" style="background-color: #99e5d2">
-                活動
-            </button>
+    <div class="text-center" style="border-color:black;border-style: solid;height:620px">
+        <div class="text-center"  style="font-size: 28px; font-weight:bold;background-color:black;color:white">後臺管理系統</div>
+        <aside class="sidenav">
+                <button id="adminNewBtn">
+                    活動
+                </button>
+                <button id="adminProductBtn">
+                    商品
+                </button>
 
-            <button class="btn btn-info " id="adminProductBtn">
-                商品
-            </button>
-        </div>
-        <div id="adminNewsTb">
-            <div style="font-size: 28px; font-weight:bold; text-align:center">活動</div>
-            <div style="text-align: right; margin-bottom:15px"><a href="{{ route('admin.posts.create') }}"
-                    class="btn btn-primary">新增</a></div>
+        </aside>
+
+        <div id="adminNewsTb" class="mainDiv">
+            <div style="font-size: 28px; font-weight:bold; text-align:center">活動
+           <a href="{{ route('admin.news.create') }}"
+                    class="btn btn-primary" style="text-align: right;float:right; margin:5px">新增</a></div>
             <table class="table table-hover text-center">
                 <thead>
                     <tr class="table-info">
@@ -37,9 +39,11 @@
                             {{-- 按鈕 --}}
                             <td>
                                 <div class="d-flex justify-content-center">
-                                   <button name="returnBtn" type="input" onclick="location.href='{{ route('admin.posts.edit', $new->id) }}'" value="newBtnval" >修改</button>
+                                    <button name="returnBtn" type="input" class="btn btn-warning"
+                                        onclick="location.href='{{ route('admin.news.edit', $new->id) }}'"
+                                        style="margin-right: 5px;" value="newBtnval">修改</button>
 
-                                    <form action="{{ route('admin.posts.destroy', $new->id) }}" method="POST">
+                                    <form action="{{ route('admin.news.destroy', $new->id) }}" method="POST">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit" class="btn btn-danger" onclick="return confirm('確定刪除嗎？')"
@@ -63,7 +67,7 @@
                 共{!! $news->total() !!}筆
             </footer>
             @if (\Session::has('deleteSuc'))
-                <div class="alert alert-success alertMsg" style="display:none;">
+                <div class="alert alert-warning alertMsg" style="display:none;">
                     <ul>
                         <li>{!! \Session::get('deleteSuc') !!}</li>
                     </ul>
@@ -79,11 +83,11 @@
         </div>
         </footer>
         {{-- 商品 --}}
-        <div id="adminPtoductTb" style="display: none">
-            <div style="font-size: 22px; font-weight:bold; text-align:center">商品</div>
+        <div id="adminPtoductTb" style="display: none"  class="mainDiv">
+            <div style="font-size: 28px; font-weight:bold; text-align:center">商品</div>
             <div style="text-align: right; margin-bottom:15px"><a href="{{ route('admin.posts.create') }}"
                     class="btn btn-primary">新增</a></div>
-            <table class="table table-hover">
+            <table class="table table-hover text-center">
                 <thead>
                     <tr class="table-info">
                         <th scope="col">#</th>
@@ -91,6 +95,7 @@
                         <th scope="col">標題</th>
                         <th scope="col">價格</th>
                         <th scope="col">副標題</th>
+                        <th scope="col">操作</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -98,14 +103,16 @@
                         <tr>
                             <th scope="row">{!! $post->id !!}</th>
                             <td>{!! $post->title !!}</td>
-                            <td><img src="{{ asset('uploads/newsImage/' . $new->image) }}" style="width: 50px"></td>
+                            <td><img src="{{ asset('uploads/postsImage/' . $post->image) }}" style="width: 50px"></td>
                             <td>{!! $post->price !!}</td>
                             <td>{!! $post->description !!}</td>
                             <td>
                                 <div class="d-flex justify-content-center">
-                                   <button name="returnBtn" type="input" onclick="location.href='{{ route('admin.posts.edit', $new->id) }}'" value="newBtnval" >修改</button>
+                                    <button name="returnBtn" type="input"
+                                        onclick="location.href='{{ route('admin.posts.edit', $post->id) }}'"
+                                        class="btn btn-info" value="postBtnval">修改</button>
 
-                                    <form action="{{ route('admin.posts.destroy', $new->id) }}" method="POST">
+                                    <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit" class="btn btn-danger" onclick="return confirm('確定刪除嗎？')"

@@ -19,7 +19,7 @@ class NewsController extends Controller
     {
         $this->authorize('admin');
         $news = "news";
-        return view('admin.posts.create', compact('news'));
+        return view('admin.news.create', compact('news'));
     }
 
     /**
@@ -52,7 +52,7 @@ class NewsController extends Controller
 
         $new->save();
 
-        return redirect()->back()->with('saveSuc', '新增成功！');
+        return redirect()->route('adminHome')->with('saveSuc', '新增成功！');
     }
 
     // ----------------------------------------修改-------------------------------------------
@@ -66,7 +66,7 @@ class NewsController extends Controller
     public function edit($id)
     {
         $news = News::find($id);
-        return view('admin.posts.edit', compact('news'));
+        return view('admin.news.edit', compact('news'));
     }
     /**
      * Update the specified resource in storage.
