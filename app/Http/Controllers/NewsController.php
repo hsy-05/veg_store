@@ -48,6 +48,7 @@ class NewsController extends Controller
         }
         $new->title = $request->input('title');
         $new->subtitle = $request->input('subtitle');
+        $new->type = $request->input('type');
         $new->image = $fileName;
 
         $new->save();
@@ -107,7 +108,7 @@ class NewsController extends Controller
         }
         $news->title = $request->input('title');
         $news->subtitle = $request->input('subtitle');
-
+        $news->type = $request->input('type');
         $news->save();
 
         return redirect()->route('adminHome');

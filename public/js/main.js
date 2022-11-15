@@ -4,7 +4,9 @@ $(document).ready(function () {
         $("#adminNewsTb").show("slow");
         $("#adminPtoductTb").hide("slow");
         document.getElementById("adminNewBtn").style.background= "#99e5d2";
-        document.getElementById('adminProductBtn').style.backgroundColor = "";
+        document.getElementById("adminNewBtn").style.color= "#000000";
+        document.getElementById("adminProductBtn").style.color= "#ffffff";
+        document.getElementById('adminProductBtn').style.backgroundColor = "black";
     });
 });
 
@@ -13,7 +15,9 @@ $(document).ready(function () {
         $("#adminPtoductTb").show("slow");
         $("#adminNewsTb").hide("slow");
         document.getElementById("adminProductBtn").style.background= "#99e5d2";
-        document.getElementById('adminNewBtn').style.backgroundColor = "";
+        document.getElementById("adminProductBtn").style.color= "#000000";
+        document.getElementById("adminNewBtn").style.color= "#ffffff";
+        document.getElementById('adminNewBtn').style.backgroundColor = "black";
     });
 });
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Encore\Admin\Middleware\Session;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -26,7 +27,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-      public function store(Request $request)
+    public function store(Request $request)
     {
         $this->authorize('admin');
         if (!file_exists('uploads/postsImage')) {
@@ -47,11 +48,17 @@ class PostController extends Controller
         $post->price = $request->input('price');
         $post->title = $request->input('title');
         $post->description = $request->input('description');
+        $post->type = $request->input('type');
         $post->image = $fileName;
 
         $post->save();
+        if (!($post->save())) {
+            return redirect()->route('adminHome');
+        } else {
 
-        return redirect()->route('adminHome')->with('saveSuc', '新增成功！');
+            $this->$request->session()->flash('saveSuc', "新增成功！");
+            return redirect()->route('adminHome');
+        }
     }
 
     /**

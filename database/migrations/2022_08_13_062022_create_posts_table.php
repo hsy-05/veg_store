@@ -17,6 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('image');
+            $table->string('type');
             $table->integer('price');
             $table->text('description');
             $table->timestamps();
@@ -31,5 +32,8 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('posts');
+        // Schema::table('posts', function($table) {
+        //     $table->dropColumn('paid');
+        // });
     }
 };
